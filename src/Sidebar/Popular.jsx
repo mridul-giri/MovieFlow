@@ -6,10 +6,10 @@ import { TopNav } from "../Components/TopNav";
 import { useNavigate } from "react-router-dom";
 
 export function Popular() {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [trending, setTrending] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true); 
+  const [hasMore, setHasMore] = useState(true);
   const containerRef = useRef(null);
 
   const fetchTrending = async () => {
@@ -17,9 +17,9 @@ export function Popular() {
     setLoading(true);
 
     try {
-      const { data } = await axios.get(`/movie/popular`); 
+      const { data } = await axios.get(`/movie/popular`);
       setTrending((prev) => [...prev, ...data.results]);
-      setHasMore(data.results.length > 0); 
+      setHasMore(data.results.length > 0);
     } catch (e) {
       console.error(e);
     } finally {
@@ -35,7 +35,11 @@ export function Popular() {
     const handleScroll = () => {
       if (containerRef.current) {
         const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
-        if (scrollTop + clientHeight >= scrollHeight - 5 && hasMore && !loading) {
+        if (
+          scrollTop + clientHeight >= scrollHeight - 5 &&
+          hasMore &&
+          !loading
+        ) {
           fetchTrending();
         }
       }
@@ -54,24 +58,29 @@ export function Popular() {
   }, [loading, hasMore]);
 
   return (
-    <div className="pl-2 w-screen h-screen flex flex-col overflow-hidden">
+    <div className="p-3 w-screen h-screen flex flex-col overflow-hidden">
       {/* Header section with navigation */}
-      <div className="w-full flex items-center justify-between mb-4 z-10 relative">
-        <h1 className="text-2xl font-semibold text-white flex items-center">
-          <i
-            onClick={() => navigate(-1)}
-            className="ri-arrow-left-line mr-3 cursor-pointer"
-          ></i>
+      <div className="w-full flex border-b mb-4 z-10 relative">
+        <h1
+          onClick={() => navigate(-1)}
+          className="text-2xl font-semibold text-white  cursor-pointer flex items-center"
+        >
+          <i className="ri-arrow-left-line mr-2 mt-1"></i>
           Popular
         </h1>
-        <div className="flex items-center w-[88%]">
-          <TopNav />
-        </div>
+        {/* <div className="flex items-center w-[88%]"> */}
+        <TopNav />
+        {/* </div> */}
       </div>
 
       {/* Content section with Cards or Loader */}
-      <div ref={containerRef} className="mt-4 flex-1 overflow-auto p-4">
-        {trending.length > 0 ? <Cards data={trending} title="movie" /> : <Loader />} {/* Pass media type */}
+      <div ref={containerRef} className="flex-1 overflow-auto">
+        {trending.length > 0 ? (
+          <Cards data={trending} title="movie" />
+        ) : (
+          <Loader />
+        )}{" "}
+        {/* Pass media type */}
         {loading && <Loader />}
       </div>
     </div>

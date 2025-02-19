@@ -5,7 +5,7 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
-  "name": "major-project",
+  "name": "frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",

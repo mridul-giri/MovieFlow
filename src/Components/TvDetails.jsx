@@ -5,9 +5,8 @@ import { loadtv, removetv } from "../store/actions/TvActions";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "./Loader";
 
-
-export function TvDetails(){
-  const {pathname}=useLocation();
+export function TvDetails() {
+  const { pathname } = useLocation();
   const dispatch = useDispatch();
   const { id } = useParams();
   const { info } = useSelector((state) => state.tv);
@@ -83,7 +82,9 @@ export function TvDetails(){
             <h1>{info.detail.runtime} min</h1>
           </div>
 
-          <h1 className="text-xl italic text-gray-300">{info.detail.tagline}</h1>
+          <h1 className="text-xl italic text-gray-300">
+            {info.detail.tagline}
+          </h1>
 
           <h1 className="text-lg font-semibold text-white mt-5">Overview</h1>
 
@@ -92,18 +93,23 @@ export function TvDetails(){
             className="p-2  text-gray-300 rounded-md"
             style={{
               maxWidth: "600px",
-              maxHeight: "250px", 
-              overflowY: "hidden", 
-              wordWrap: "break-word"
+              maxHeight: "250px",
+              overflowY: "hidden",
+              wordWrap: "break-word",
             }}
           >
             {info.detail.overview || "No overview available for this movie."}
           </p>
 
-          <Link to={`${pathname}/trailer`} className="bg-gray-400 p-3 mt-3 text-black rounded font-semibold flex items-center justify-center text-center">Play Trailer</Link>
+          <Link
+            to={`${pathname}/trailer`}
+            className="bg-gray-400 p-3 mt-3 text-black rounded font-semibold flex items-center justify-center text-center"
+          >
+            Play Trailer
+          </Link>
         </div>
       </div>
-            <Outlet/>
+      <Outlet />
     </div>
   );
 }

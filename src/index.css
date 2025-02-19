@@ -1,24 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* scroll bar ki styling change krne k liye.. */
-::-webkit-scrollbar{
-    width:7px ;
-    height: 7px;
+* {
+  font-family: "Work Sans", serif;
 }
-::-webkit-scrollbar-thumb{
-    background-color: black;
-    border-radius: 10px;
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 3px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: white;
+  border-radius: 10px;
 }
 /* Hides the scrollbar */
 .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .scrollbar-hide {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  }
-  
-  
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

@@ -1,29 +1,27 @@
 import React, { useEffect, useState } from "react";
-
 import { TopNav } from "./TopNav";
 import axios from "../Utils/axios";
 import { Header } from "./Header";
-import {Sidebar} from "./Sidebar"
+import { Sidebar } from "./Sidebar";
 import { Loader } from "./Loader";
 import HorizontalCards from "./HorizontalCards";
+
 export function Home() {
+  const [wallpaper, setWallpaper] = useState(null);
+  const [trending, setTrending] = useState(null);
 
-  const[wallpaper,setWallpaper]=useState(null);
-  const[trending,setTrending]=useState(null);
-  
-
- 
-  const getWallpaer=async () => {
+  const getWallpaer = async () => {
     try {
       const { data } = await axios.get(`/trending/all/day`);
-      let randData=data.results[(Math.random()*data.results.length).toFixed()];
+      let randData =
+        data.results[(Math.random() * data.results.length).toFixed()];
       setWallpaper(randData);
     } catch (e) {
       console.log(e);
     }
   };
 
-  const getTrending=async () => {
+  const getTrending = async () => {
     try {
       const { data } = await axios.get(`/trending/all/day`);
       setTrending(data.results);
@@ -32,20 +30,23 @@ export function Home() {
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     !wallpaper && getWallpaer();
     !trending && getTrending();
-  },[]);
+  }, []);
 
-
-  return wallpaper && trending? (
+  return wallpaper && trending ? (
     <>
-    <Sidebar/>
+      <Sidebar />
       <div className="w-full h-full overflow-auto scrollbar-hide ">
         <TopNav />
-        <Header data={wallpaper}/>
-        <HorizontalCards data={trending}/>
+        <Header data={wallpaper} />
+        <HorizontalCards data={trending} />
       </div>
     </>
-  ):<h1><Loader/></h1>;
+  ) : (
+    <h1>
+      <Loader />
+    </h1>
+  );
 }

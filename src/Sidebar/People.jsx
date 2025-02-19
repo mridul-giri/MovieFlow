@@ -37,7 +37,11 @@ export function People() {
     const handleScroll = () => {
       if (containerRef.current) {
         const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
-        if (scrollTop + clientHeight >= scrollHeight - 5 && hasMore && !loading) {
+        if (
+          scrollTop + clientHeight >= scrollHeight - 5 &&
+          hasMore &&
+          !loading
+        ) {
           fetchTrending();
         }
       }
@@ -56,28 +60,25 @@ export function People() {
   }, [loading, hasMore]);
 
   return (
-    <div className="pl-2 w-screen h-screen flex flex-col overflow-hidden">
+    <div className="p-3 w-screen h-screen flex flex-col overflow-hidden">
       {/* Header section with navigation */}
-      <div className="w-full flex items-center justify-between mb-4 z-10 relative">
-        <h1 className="text-2xl font-semibold text-white flex items-center">
-          <i
-            onClick={() => navigate(-1)} 
-            className="ri-arrow-left-line mr-3 cursor-pointer"
-          ></i>
+      <div className="w-full flex border-b z-10 relative">
+        <h1
+          onClick={() => navigate(-1)}
+          className="text-2xl font-semibold text-white cursor-pointer flex items-center"
+        >
+          <i className="ri-arrow-left-line mr-2 mt-1"></i>
           People
         </h1>
-        <div className="flex items-center w-[88%]">
-          <TopNav />
-        </div>
+        {/* <div className="flex items-center w-[88%]"> */}
+        <TopNav />
+        {/* </div> */}
       </div>
 
       {/* Content section with Cards or Loader */}
-      <div
-        ref={containerRef}
-        className="mt-4 flex-1 overflow-auto p-4"
-      >
+      <div ref={containerRef} className="flex-1 overflow-auto">
         {trending.length > 0 ? (
-          < PeopleCard data={trending} title="people"  />
+          <PeopleCard data={trending} title="people" />
         ) : (
           <Loader />
         )}
